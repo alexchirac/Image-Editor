@@ -1,0 +1,56 @@
+#Copyright CHIRAC ALEXANDRU-STEFAN 313CAb 2022 - 2023
+
+Programul meu citeste de la tastatura cate un rand pana intalneste EXIT pe
+primul rand.
+
+In functie de comanda data programul executa diferite operatii pe imagini
+
+Daca in comanda sunt dati prea putini parametri, prea multi, sau parametri
+incorecti programul afiseaza "Invalid command" (exceptand "APPLY")
+
+Pentru comanda LOAD programul verifica daca este deja incarcata in memorie o
+imagine si ii da free in acest caz, iar apoi incarca o noua imagine in
+memorie daca fisierul dat a putut fi deschis.
+
+In cazul fisierelor pgm matricea este incarcata in memorie cu dimensiunile date
+si in cazul fisierelor ppm numarul de coloane este inmultit cu 3 pentru a
+retine valorile pentru rosu,verde si albastru.
+
+Pentru urmatoarele comenzi daca nu este incarcata in memorie nicio imagine se
+va afisa "No image loaded".
+
+In cazul comenzii SELECT sunt retinuti pixelii intre care se face selectia
+pentru a executa ulterior operatii pe acestia
+
+In cazul comenzii HISTOGRAM sunt impartite cele 256 valori de pixeli in cate
+y bin-uri. Este parcursa matrice, iar pentru valoarea pixelului curent, creste
+cu 1 valoarea binului corespunzator acestuia. Se gaseste valoarea maxima a 
+binurilor, iar apoi folosim regula de 3 simpla pentru fiecare bin pentru a afla
+numarul sau de stelute.
+
+In cazul comenzii EQUALIZE parcurgem matricea si punem intr-un vector de
+frecventa valorile pixelilor. Dupa aceea pentru fiecare valoare retinem suma
+frecventelor valorilor mai mici decat aceasta. In final se parcurge iar
+matricea si se schimba valorile conform formulei.
+
+In cazul comenzii CROP, se face o copie la selectie, matricea mare este stearsa
+si inlocuita cu copia selectiei.
+
+In cazul comenzii ROTATE, se verifica mai intai daca unghiul este valid si apoi
+care este selectia. Daca selectia nu este toata imaginea se verifica si daca
+este patrata sau nu. Unghiul este redus la intervalul [0, 360], iar apoi este
+calculat numarul de rotiri. In final rotim imaginea sau selectia, de atatea ori
+cate rotiri am calculat.
+
+In cazul comenzii APPLY, se creaza matricea kernel. Se creeaza o matrice
+auxiliara de dimensiunile selectiei, iar in aceasta se stocheaza valorile
+modificate ale pixelilor. In final copiem valorile din matricea auxiliara in 
+matricea initiala.
+
+In cazul comenzii SAVE, se modifica tipul pozei pentru a se potrivi cu cel in
+care se face salvarea. Se afiseaza in fisier tipul, dimensiunile si valoarea
+maxima a pixelilor in format ascii. Valorile pixelilor sunt afisate in format
+ascii sau binar in functie de cum sunt dati parametri comenzii.
+
+In cazul comenzii EXIT, se inchide loop-ul din while si este eliberata matricea
+in care sunt salvati pixelii, daca aceasta este incarcata.
